@@ -4,6 +4,7 @@ const variables = require("./configs/variables");
 
 const app = express();
 const categoryRouter = require("../routes/categoryRoute");
+const productRouter = require("../routes/productRoute");
 const port = variables.Api.port;
 
 app.use(bodyParser.json());
@@ -14,5 +15,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/category", categoryRouter);
+app.use("/api/product", productRouter);
 
 module.exports = { app, port };
