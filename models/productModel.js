@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
 
-const productModel = new schema(
+const productModel = new mongoose.Schema(
   {
     name: {
       trim: true,

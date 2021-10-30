@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
 
-const categoryModel = new schema(
+const CategoryModel = new mongoose.Schema(
   {
     title: {
       trim: true,
@@ -29,12 +28,10 @@ const categoryModel = new schema(
   { versionKey: false }
 );
 
-categoryModel.pre("save", (next) => {
+CategoryModel.pre("save", (next) => {
   let now = new Date();
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
+  if (!this.createdAt) this.createdAt = now;
   next();
 });
 
-module.exports = mongoose.model("Category", categoryModel);
+module.exports = mongoose.model("Category", CategoryModel);

@@ -1,16 +1,12 @@
-"use strict";
-
 const express = require("express");
-const router = express.Router();
+const routes = express.Router();
 
-const categoryController = require("../controllers/categoryController");
+const CategoryController = require("../controllers/categoryController");
 
-let category = new categoryController();
-
-router.get("/", category.get);
+routes.get("/", CategoryController.handle);
 // router.get("/:id", category.getById);
 // router.post("/", category.post);
 // router.put("/:id", category.put);
 // router.delete("/:id", category.delete);
 
-module.exports = router;
+module.exports = routes;

@@ -1,15 +1,27 @@
-"use strict";
+const Category = require("../models/categoryModel");
 
-function categoryController() {}
+module.exports = {
+  async handle(req, res) {
+    const categories = await Category.find();
+    return res.json(categories);
+  },
+  async show(req, res) {
+    const category = await Category.findById(req.params.id);
+    return res.json(category);
+  },
+  async store(req, res) {
+    const category = await Category.create(req.body);
+    return res.json(category);
+  },
+  async update(req, res) {
+    const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    return res.json(category);
+  },
 
-categoryController.prototype.get = async (req, res) => {
-  res.status(200).send("ok");
+  async destroy(req, res) {
+    const category = await Category.findOneAndRemove(req.params.id);
+    return res.send();
+  },
 };
-categoryController.prototype.getById = async (req, res) => {
-  res.status(200).send(`O id passado foi ${req.params.id}`);
-};
-categoryController.prototype.post = async (req, res) => {};
-categoryController.prototype.put = async (req, res) => {};
-categoryController.prototype.delete = async (req, res) => {};
-
-module.exports = categoryController;

@@ -1,18 +1,18 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+
+const cors = require("cors");
 const variables = require("./configs/variables");
+const productRoute = require("../routes/productRoute");
+const categoryRoute = require("../routes/categoryRoute");
 
 const app = express();
-const categoryRouter = require("../routes/categoryRoute");
-const productRouter = require("../routes/productRoute");
-const otherRouter = require("../routes/otherRoute");
-const classRouter = require("../routes/classRoute");
 
 const port = variables.Api.port;
 const connection = variables.Database.connection;
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json());
+app.use(cors());
 
 // Connection to database
 mongoose.connect(connection, {
@@ -20,13 +20,11 @@ mongoose.connect(connection, {
   useUnifiedTopology: true,
 });
 
-app.get("/", (req, res) => {
-  res.status(200).send("Welcome to the API");
+app.get("/", (res) => {
+  res.status(200).send("Welcome to the API-Food");
 });
 
-app.use("/api/category", categoryRouter);
-app.use("/api/product", productRouter);
-app.use("/api/other", otherRouter);
-app.use("/api/class", classRouter);
+app.use("/api/products", productRoute);
+app.use("/api/categories", categoryRoute);
 
 module.exports = { app, port };
